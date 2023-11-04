@@ -8,6 +8,8 @@ from typing import Optional
 
 import uvicorn
 from fastapi import FastAPI, status
+from skyscanner.skyscanner import Flights
+flights_service = Flights('sh428739766321522266746152871799')
 
 from skyscanner.skyscanner import Flights
 flights_service = Flights('<sh428739766321522266746152871799>')
@@ -58,7 +60,6 @@ def read_item(item_id: int, q: Optional[str] = None):
 
 
 # TODO: Add POST route for demo
-
 
 if __name__ == "__main__":
     uvicorn.run("main:app", port=5000, reload=True)
