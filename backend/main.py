@@ -56,6 +56,5 @@ def read_item(item_id: int, q: Optional[str] = None):
 
 # TODO: Add POST route for demo
 
-
 if __name__ == "__main__":
     uvicorn.run("main:app", port=5000, reload=True)
