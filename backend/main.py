@@ -12,6 +12,9 @@ from skyscanner.skyscanner import *
 
 API_KEY = 'sh428739766321522266746152871799'
 
+from skyscanner.skyscanner import Flights
+flights_service = Flights('<sh428739766321522266746152871799>')
+
 
 # Initializing and setting configurations for your FastAPI application is one
 # of the first things you should do in your code.
