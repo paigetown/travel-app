@@ -37,19 +37,28 @@ if __name__ == "__main__":
 #Routes for Geoapify
 
 import requests
-user_location = input("Enter a City, Country")
+#import geocoder
 
-
+user_location = input("Enter a City, Country: ")
+#address = (f'https://maps.googleapis.com/maps/api/geocode/json?{user_location}')
+#address.json
 
 ## getting longitude and latitude of user input
 from geopy.geocoders import Nominatim
+from requests.structures import CaseInsensitiveDict
 geolocator = Nominatim(user_agent="MyApp")
-location = geolocator.geocode(user_location)
 
+#location = geolocator.geocode(place_id)
 
+GEOCODE_KEY = 'bebc019765d94e818ed0a95a81623aac'
+
+f"categories=tourism.attraction&bias=proxmity:{location}&limit = 15"
 parameters = {
-    f"categories=tourism.attraction&bias=proxmity:{location.longitude},{location.latitude}&limit = 15"
+    f"https://api.geoapify.com/v1/geocode/search?text={user_location}&format=json&apiKey={GEOCODE_KEY}"
 }
 
+PLACES_KEY = 'e6b0db864bc4428586627cc9ccb6ce7c'
 
-geoapify_responses = requests.get("https://api.geoapify.com/v2/places?",params=parameters, apiKey= "4ce6deba3eee428682f4fd8b9c2944cb")
+url = (f"https://api.geoapify.com/v2/places?params={parameters}&apiKey={PLACESzz_KEY}")
+response = requests.get(url)
+print(response.json())
