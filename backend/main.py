@@ -8,8 +8,22 @@ from typing import Optional
 
 import uvicorn
 from fastapi import FastAPI, status
+from amadeus import Client, ResponseError
 
+amadeus = Client(
+    client_id='gkGy9Q5LC1fu1ZgOiB8NrdGcGSAMxQSl',
+    client_secret='E6slKTGAEMC8G7cD'
+)
 
+try:
+    response = amadeus.shopping.flight_offers_search.get(
+        originLocationCode='MAD',
+        destinationLocationCode='ATH',
+        departureDate='2022-11-01',
+        adults=1)
+    print(response.data)
+except ResponseError as error:
+    print(error)
 
 # Initializing and setting configurations for your FastAPI application is one
 # of the first things you should do in your code.
@@ -56,10 +70,6 @@ def read_item(item_id: int, q: Optional[str] = None):
 
 
 # TODO: Add POST route for demo
-curl "https://test.api.amadeus.com/v1/security/oauth2/token" \
-     -H "Content-Type: application/x-www-form-urlencoded" \
-     -d "grant_type=client_credentials&client_id=gkGy9Q5LC1fu1ZgOiB8NrdGcGSAMxQSl&client_secret=E6slKTGAEMC8G7cD"
-POST /test https://test.api.amadeus.com/v2/shopping/flight-offers
 
 
 if __name__ == "__main__":
