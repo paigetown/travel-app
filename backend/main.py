@@ -8,8 +8,9 @@ from typing import Optional
 
 import uvicorn
 from fastapi import FastAPI, status
-from skyscanner.skyscanner import Flights
-flights_service = Flights('sh428739766321522266746152871799')
+from skyscanner.skyscanner import *
+
+API_KEY = 'sh428739766321522266746152871799'
 
 
 # Initializing and setting configurations for your FastAPI application is one
@@ -55,6 +56,8 @@ def home():
 def read_item(item_id: int, q: Optional[str] = None):
     return {"item_id": item_id, "q": q}
 
+flights_service = Flights(API_KEY)
+result = flight
 
 # TODO: Add POST route for demo
 
