@@ -8,12 +8,7 @@ from typing import Optional
 
 import uvicorn
 from fastapi import FastAPI, status
-from skyscanner.skyscanner import *
 
-API_KEY = 'sh428739766321522266746152871799'
-
-from skyscanner.skyscanner import Flights
-flights_service = Flights('<sh428739766321522266746152871799>')
 
 
 # Initializing and setting configurations for your FastAPI application is one
@@ -59,10 +54,13 @@ def home():
 def read_item(item_id: int, q: Optional[str] = None):
     return {"item_id": item_id, "q": q}
 
-flights_service = Flights(API_KEY)
-result = flight
 
 # TODO: Add POST route for demo
+curl "https://test.api.amadeus.com/v1/security/oauth2/token" \
+     -H "Content-Type: application/x-www-form-urlencoded" \
+     -d "grant_type=client_credentials&client_id=gkGy9Q5LC1fu1ZgOiB8NrdGcGSAMxQSl&client_secret=E6slKTGAEMC8G7cD"
+POST /test https://test.api.amadeus.com/v2/shopping/flight-offers
+
 
 if __name__ == "__main__":
     uvicorn.run("main:app", port=5000, reload=True)
