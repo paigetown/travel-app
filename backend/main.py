@@ -46,19 +46,26 @@ user_location = input("Enter a City, Country: ")
 ## getting longitude and latitude of user input
 from geopy.geocoders import Nominatim
 from requests.structures import CaseInsensitiveDict
+import json
 geolocator = Nominatim(user_agent="MyApp")
 
 #location = geolocator.geocode(place_id)
 
-GEOCODE_KEY = 'bebc019765d94e818ed0a95a81623aac'
+KEY = '8141076d7f8142fd8fe25385b6d373da'
+location = f"https://api.geoapify.com/v1/geocode/search?text={user_location}&format=json&apiKey={KEY}"
+location_info = requests.get(location)
+location_info = location_info.text
 
-f"categories=tourism.attraction&bias=proxmity:{location}&limit = 15"
+data = json.loads(location_info)
+#print(data)
+limit = 15
+place_id = data['results']
+place_id = place_id[3]
+place_id = place_id['place_id']
 parameters = {
-    f"https://api.geoapify.com/v1/geocode/search?text={user_location}&format=json&apiKey={GEOCODE_KEY}"
+    f"categories=tourism.attraction&filter=place:{place_id}&limit={limit}"
 }
 
-PLACES_KEY = 'e6b0db864bc4428586627cc9ccb6ce7c'
-
-url = (f"https://api.geoapify.com/v2/places?params={parameters}&apiKey={PLACESzz_KEY}")
+url = (f"https://api.geoapify.com/v2/places?{parameters}&apiKey={KEY}")
 response = requests.get(url)
 print(response.json())
