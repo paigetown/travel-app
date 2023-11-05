@@ -1,42 +1,81 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import "./App.css";
+import { useState, useEffect } from 'react' 
 
-/*
-This is the starting point of our application. Here, we can begin coding 
-and transforming this page into whatever best suits our needs. 
-For example, we can start by creating a login page, home page, or an about section; 
-there are many ways to get your application up and running. 
-With App.jsx, we can also define global variables and routes to store information as well as page navigation.
-*/
-function App() {
-  const [count, setCount] = useState(0);
+import MovieCard from './MovieCard';
+import './App.css';
+import SearchIcon from './search.svg';
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  );
+const API_URL = 'http://www.omdbapi.com?apikey=18ec9893';
+
+const movie = {
+    "Title": "Batman",
+    "Year": "1989",
+    "imdbID": "tt0096895",
+    "Type": "movie",
+    "Poster": "https://m.media-amazon.com/images/M/MV5BMTYwNjAyODIyMF5BMl5BanBnXkFtZTYwNDMwMDk2._V1_SX300.jpg"
+     
+}
+
+const App = () => {
+    const [movies, setMovies] = useState([]);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [dateBegin, setDateBegin] = useState({varOne:new Date()})
+    const [dateEnd, setDateEnd] = useState({varTwo:new Date()})
+    const t_date = new Date().toISOString().split("T")[0];
+    
+
+    const searchMovies = async (title) => {
+        const response = await fetch(`${API_URL}&s=${title}`)
+        const data = await response.json();
+
+        setMovies(data.Search);
+    }
+
+    useEffect(() => {
+        searchMovies('Batman');
+
+    }, []);
+
+    return(
+        <div className="app">
+            <h1>Enter a Destination</h1>
+
+            <div className="search">
+                <input
+                  className="placeholder"
+                  placeholder="Enter a Location..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                />
+                <div>
+                    <label className="start_real">Start date: </label>
+                    <input type="date" id="start" name="trip-start" min={t_date} max="2030-12-31" onChange ={(f) => setDateBegin(f.target.value)}/>
+                </div>
+                <div>
+                    <label className="start_end">End date: </label>
+                    <input type="date" id="start" name="trip-end" min={t_date} max="2030-12-31" onChange ={(f) => setDateEnd(f.target.value)}/>
+                    
+                </div>
+                <img
+                src={SearchIcon}
+                alt="search"
+                onClick={() => searchMovies(searchTerm)}
+                />
+            </div>
+
+            {movies?.length > 0
+            ? (
+                <div className="container">
+                {movies.map((movie) => (
+                    <MovieCard movie={movie} />
+                ))}
+                </div> 
+            ) : (
+                <div className="empty">
+                <h2>No movies found</h2>
+                </div> 
+            )}
+        </div>
+    );
 }
 
 export default App;
