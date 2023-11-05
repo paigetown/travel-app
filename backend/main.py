@@ -64,20 +64,6 @@ def address_format(list):
     collection.sort()
     return collection
 
-def get_lon(list):
-    features = list['features']
-    for x in features:
-        properties = x['properties']
-        longitude = properties['lon'] 
-    return longitude
-
-def get_lat(list):
-    features = list['features']
-    for x in features:
-        properties = x['properties']
-        latitude = properties['lat'] 
-    return latitude
-
 list_of_attractions = address_format(places)
 
 
@@ -134,4 +120,4 @@ for x in list_of_attractions:
     yelp_url = 'https://api.yelp.com/v3/businesses/search'
     tourist_response= requests.get(yelp_url,params=tourist_parameters, headers=headers)
     tourist_yelp.append(tourist_response)
-    print(tourist_yelp)
+print(tourist_yelp)
