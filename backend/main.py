@@ -55,6 +55,7 @@ data = json.loads(location_info)
 limit = 15
 place_id = data['results']
 place_id = place_id[0]
+place_id = place_id[0]
 place_id = place_id['place_id']
 parameters = f"categories=tourism.attraction&filter=place:{place_id}&limit=15"
 
@@ -67,13 +68,12 @@ print(response.json())
 #getting longitude and latitude from previous geoapify call
 
 longitude = data['results']
-longitude = longitude[3]
+longitude = longitude[0]
 longitude = longitude['lon']
 
 latitude = data['results']
-latitude = latitude[3]
+latitude = latitude[0]
 latitude = latitude['lat']
-
 
 
 yelp_key='rW67PZzaPE67n2ms9CobxWSC7dnglV2whOL5GK82WMNr1cP0U-g8uf_wPQnTJFcTaAGX60x-8zmM_oCzEDeoWZAT4v2SNl0guzmh906MicoEzrTYQTBMF6YKj8lGZXYx'
@@ -81,14 +81,14 @@ headers = {'Authorization': 'Bearer %s' % yelp_key}
 
 yelp_parameters = { 'latitude':f"{latitude}",
                      'longitude':f"{longitude}",
-                    'term' : 'hotel',
+                    'term' : 'hotel', 
                     'radius' : 40000,
-                    'limit' :3,
+                    'limit' :5,
                     }
 yelp_url = 'https://api.yelp.com/v3/businesses/search'
 yelp_response= requests.get(yelp_url,params=yelp_parameters, headers=headers) 
 print(yelp_response)
-#print(yelp_response.json())
+print(yelp_response.json())
 response = response.text
 places = json.loads(response)
 #print(places)
