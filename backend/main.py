@@ -127,16 +127,12 @@ def get_attractions(location: str):
     return hotel_names,hotel_urls
 
 
-    # for x in list_of_attractions:
-    #     tourist_yelp = []
-    #     lon = get_lon(x)
-    #     lat = get_lat(x)
-    #     tourist_parameters = { 'latitude':f"{lat}",
-    #                     'longitude':f"{lon}",
-    #                     'radius' : 40000,
-    #                     'limit' :5,
-    #                     }
-    #     yelp_url = 'https://api.yelp.com/v3/businesses/search'
-    #     tourist_response= requests.get(yelp_url,params=tourist_parameters, headers=headers)
-    #     tourist_yelp.append(tourist_response)
-    #     print(tourist_yelp)
+for x in places:
+    tourists = []
+    location = address_format(places)
+    for y in location:
+        tourist_parameters = { 'location' : f'{y}'}
+        yelp_url = 'https://api.yelp.com/v3/businesses/search'
+        tourist_response = requests.get(yelp_url,params=tourist_parameters, headers=headers)
+        tourist_response = tourist_response.text
+        tourists.append(tourist_response)
