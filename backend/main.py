@@ -120,7 +120,12 @@ def get_attractions(location: str):
         sorted_yelp_collection = dict(sorted(yelp_collection.items()))
         return sorted_yelp_collection
 
-    return yelp_dictionary(hotels)
+    hotels_dictionary= yelp_dictionary(hotels)
+    hotel_names=list(hotels_dictionary.keys())
+    hotel_urls=list(hotels_dictionary.values())
+    
+    return hotel_names,hotel_urls
+
 
     # for x in list_of_attractions:
     #     tourist_yelp = []
