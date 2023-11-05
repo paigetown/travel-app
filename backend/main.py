@@ -64,7 +64,7 @@ def address_format(list):
     collection.sort()
     return collection
 
-def get_long(list):
+def get_lon(list):
     features = list['features']
     for x in features:
         properties = x['properties']
@@ -101,14 +101,26 @@ yelp_parameters = { 'latitude':f"{latitude}",
                      'longitude':f"{longitude}",
                     'term' : 'hotel', 
                     'radius' : 40000,
-                    'limit' :5,
+                    'limit' :6,
                     }
 yelp_url = 'https://api.yelp.com/v3/businesses/search'
-yelp_response= requests.get(yelp_url,params=yelp_parameters, headers=headers) 
-'''print(yelp_response)
-print(yelp_response.json())'''
-#print(places)
+yelp_response= requests.get(yelp_url,params=yelp_parameters, headers=headers)
+yelp_response = yelp_response.text
+hotels = json.loads(yelp_response)
 
+##makes a dictionary for hotel names and images 
+
+def yelp_dictionary(dictionary):
+    yelp_collection = {}
+    businesses = dictionary.get('businesses', []) 
+    for x in businesses:
+        name = x.get('name', 'N/A')
+        image = x.get('image_url', 'N/A')
+        yelp_collection[name]=image
+    sorted_yelp_collection = dict(sorted(yelp_collection.items()))
+    return sorted_yelp_collection
+
+hotels_for_user= yelp_dictionary(hotels)
 
 for x in list_of_attractions:
     tourist_yelp = []
@@ -122,4 +134,4 @@ for x in list_of_attractions:
     yelp_url = 'https://api.yelp.com/v3/businesses/search'
     tourist_response= requests.get(yelp_url,params=tourist_parameters, headers=headers)
     tourist_yelp.append(tourist_response)
-print(tourist_yelp)
+    print(tourist_yelp)
