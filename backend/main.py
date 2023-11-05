@@ -63,7 +63,6 @@ response = requests.get(url)
 def address_format(response):
     collection = []
     features = response['features']
-
     for x in features:
         properties = x['properties']
         address = properties['formatted']
