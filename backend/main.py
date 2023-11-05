@@ -58,14 +58,25 @@ location_info = location_info.text
 
 data = json.loads(location_info)
 #print(data)
-limit = 15
 place_id = data['results']
-place_id = place_id[3]
+place_id = place_id[0]
 place_id = place_id['place_id']
-parameters = {
-    f"categories=tourism.attraction&filter=place:{place_id}&limit={limit}"
-}
+parameters = f"categories=tourism.attraction&filter=place:{place_id}&limit=15"
 
 url = (f"https://api.geoapify.com/v2/places?{parameters}&apiKey={KEY}")
 response = requests.get(url)
-print(response.json())
+response = response.text
+places = json.loads(response)
+#print(places)
+def address_format(response):
+    collection = []
+    features = response['features']
+
+    for x in features:
+        properties = x['properties']
+        address = properties['formatted']
+        collection.append(address)
+    collection.sort()
+    return collection
+
+print(address_format(places))
