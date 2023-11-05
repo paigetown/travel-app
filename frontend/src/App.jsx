@@ -4,7 +4,7 @@ import MovieCard from './MovieCard';
 import './App.css';
 import SearchIcon from './search.svg';
 
-const API_URL = 'http://www.omdbapi.com?apikey=18ec9893';
+const API_URL = 'localhost:5000';
 
 const movie = {
     "Title": "Batman",
