@@ -71,7 +71,7 @@ def address_format(response):
     collection.sort()
     return collection
 
-print(address_format(places))
+list_of_attractions = address_format(places)
 
 #yelp for hotels
 
