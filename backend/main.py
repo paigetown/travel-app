@@ -43,13 +43,7 @@ user_location = input("Enter a City, Country: ")
 #address = (f'https://maps.googleapis.com/maps/api/geocode/json?{user_location}')
 #address.json
 
-## getting longitude and latitude of user input
-from geopy.geocoders import Nominatim
-from requests.structures import CaseInsensitiveDict
-import json
-geolocator = Nominatim(user_agent="MyApp")
-
-#location = geolocator.geocode(place_id)
+import json 
 
 KEY = '8141076d7f8142fd8fe25385b6d373da'
 location = f"https://api.geoapify.com/v1/geocode/search?text={user_location}&format=json&apiKey={KEY}"
@@ -58,7 +52,7 @@ location_info = location_info.text
 
 data = json.loads(location_info)
 #print(data)
-limit = 15
+""" limit = 15
 place_id = data['results']
 place_id = place_id[3]
 place_id = place_id['place_id']
@@ -69,3 +63,31 @@ parameters = {
 url = (f"https://api.geoapify.com/v2/places?{parameters}&apiKey={KEY}")
 response = requests.get(url)
 print(response.json())
+ """
+#yelp for hotels
+
+#getting longitude and latitude from previous geoapify call
+
+longitude = data['results']
+longitude = longitude[3]
+longitude = longitude['lon']
+
+latitude = data['results']
+latitude = latitude[3]
+latitude = latitude['lat']
+
+
+
+yelp_key='rW67PZzaPE67n2ms9CobxWSC7dnglV2whOL5GK82WMNr1cP0U-g8uf_wPQnTJFcTaAGX60x-8zmM_oCzEDeoWZAT4v2SNl0guzmh906MicoEzrTYQTBMF6YKj8lGZXYx'
+headers = {'Authorization': 'Bearer %s' % yelp_key}
+
+yelp_parameters = { 'latitude':f"{latitude}",
+                     'longitude':f"{longitude}",
+                    'term' : 'hotel',
+                    'radius' : 40000,
+                    'limit' :3,
+                    }
+yelp_url = 'https://api.yelp.com/v3/businesses/search'
+yelp_response= requests.get(yelp_url,params=yelp_parameters, headers=headers) 
+print(yelp_response)
+#print(yelp_response.json())
