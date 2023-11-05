@@ -4,7 +4,7 @@ import MovieCard from './MovieCard';
 import './App.css';
 import SearchIcon from './search.svg';
 
-const API_URL = 'localhost:5000';
+const API_URL = 'http://localhost:5000';
 
 const movie = {
     "Title": "Batman",
@@ -17,21 +17,24 @@ const movie = {
 
 const App = () => {
     const [movies, setMovies] = useState([]);
+    const [images, setImages] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [dateBegin, setDateBegin] = useState({varOne:new Date()})
     const [dateEnd, setDateEnd] = useState({varTwo:new Date()})
     const t_date = new Date().toISOString().split("T")[0];
     
+    
 
     const searchMovies = async (title) => {
-        const response = await fetch(`${API_URL}&s=${title}`)
+        const response = await fetch(`${API_URL}/attractions/${title}`)
         const data = await response.json();
-
-        setMovies(data.Search);
+        console.log(data)
+        setImages(data[1])
+        setMovies(data[0]);
     }
 
     useEffect(() => {
-        searchMovies('Batman');
+        searchMovies('Irvine');
 
     }, []);
 
@@ -66,13 +69,19 @@ const App = () => {
             ? (
                 <div className="container">
                 {movies.map((movie) => (
-                    <MovieCard movie={movie} />
+                    //<MovieCard movie={movie} />
+                    <p>{movie}</p>
+                ))}
+                {images.map((image) => (
+                    //<MovieCard movie={movie} />
+                    <img src={image}></img>
                 ))}
                 </div> 
             ) : (
                 <div className="empty">
-                <h2>No movies found</h2>
+                <h2>No attractions found</h2>
                 </div> 
+                
             )}
         </div>
     );

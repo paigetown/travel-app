@@ -9,12 +9,21 @@ import uvicorn
 from fastapi import FastAPI, status
 import json 
 import requests
+from fastapi.middleware.cors import CORSMiddleware
 
 # Initializing and setting configurations for your FastAPI application is one
 # of the first things you should do in your code.
 app = FastAPI()
 
+origins = ["*"]
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.get("/home")
 def home():
@@ -127,10 +136,10 @@ def get_attractions(location: str):
     return hotel_names,hotel_urls
 
 
-for x in places:
-    tourists = []
-    location = address_format(places)
-    for y in location:
+# for x in places:
+#     tourists = []
+#     location = address_format(places)
+    for y in list_of_attractions:
         tourist_parameters = { 'location' : f'{y}'}
         yelp_url = 'https://api.yelp.com/v3/businesses/search'
         tourist_response = requests.get(yelp_url,params=tourist_parameters, headers=headers)
