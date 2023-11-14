@@ -1,57 +1,52 @@
-# Starter Pack Series: Full-Stack Web Application
+# ZotHacks 2023 PetrTrips 
 
-## Introduction
 
-Welcome to the starter-pack series on full-stack web applications! This
-repository serves as an introduction to how full-stack web applications work
-and how to leverage frameworks to make it easier to build one.
+## Inspiration
 
-## What are Frontends and Backends?
+Our goal was to make a web app to help users plan out their vacations by providing them with everything they needed.
 
-A frontend is what appears on a webpage, while a backend is what happens
-behind the scenes, like providing the data that will eventually be shown on the
-webpage.
+## What it does
 
-Frontends generally consist of HTML, CSS, and JavaScript. While you can code
-directly using these languages, there are other frameworks such as React that
-allow you to do the same faster and more efficiently.
+PetrTrips allows the user to type in any city and travels. It then will provide them with multiple hotel and tourism options in the nearby area.
 
-Backends are much more flexible in that all you need is an HTTP server that the
-client can send
-[different types of requests](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers)
-to, along with your own custom routes (e.g. http://localhost:5000/my-route), each
-of which can perform its own action, such as inserting to a database versus
-deleting a record from a database. That being said, there are many libraries,
-such as FastAPI (Python) and Express (JavaScript) that have different ways of
-doing this.
+## How we built it
 
-## What is a Full Stack Web App?
+For the front-end, we used React and Javascript to create an effective user interface.
 
-A full-stack web application generally consists of a frontend client and a
-backend server. For example, let's say you're trying to access a profile page
-on some web application and the data is stored on a database somewhere. When
-the page loads, the client sends a request to the backend which, in turn,
-retrieves the data from the database. The server will then send the data back to
-the frontend so that the frontend can display it to the user. This interaction
-is just one example of how a frontend and backend can work together to provide
-a great and scalable experience for its users.
+For the back-end, we used fast.api with python for our backend and worked with Yelp.API, Geoapify’s Geocoding API, and Geoapify’s Places API.
 
-**Important:** You might be wondering why you can't just query the database
-directly from the frontend. Databases require sensitive credentials for access and
-if you store those credentials on the frontend, they _will_ be found no matter
-where you put them. Storing them on the backend is much more secure because fewer
-people can access them. Specifically, it is possible to configure your backend
-so that only your frontend can access it.
+## Challenges we ran into
 
-## This Application
+On the back-end, we faced challenges with implementing APIs; the first few APIs we experimented with did not work for our program, setting us back. We eventually found Yelp.API, Geoapify’s Geocoding API, and Geoapify’s Places API, which we then implemented into our program. We experienced a lot of challenges with implementing the three APIs together, causing us to downscale our project by a lot. On the front-end, we had problems with connecting the frontend and backend projects to give a display. As expected, we also had technical issues such as problems pushing and pulling our work with Git.
 
-This application consists of a [React](https://react.dev/) frontend and
-[FastAPI](https://fastapi.tiangolo.com/) backend. React is a JavaScript
-framework that allows you to create and reuse HTML-like snippets, known as
-components, in your application and is able to efficiently render them on the
-browser even as the data it renders changes. FastAPI is a Python framework that
-is very similar to Flask in terms of how you declare backend routes, and is also,
-as the name implies, very fast.
+## Accomplishments that we're proud of
 
-For a deeper explanation on these two frameworks, please view the `README.md`s in
-`frontend/` and `backend/`.
+We are proud of being able to learn how to use and implement APIs into our project. We are also very proud of creating a big project together as a group effort!
+
+## What we learned
+
+This was our first time using APIs as well as working on both an back- and front-end.
+
+## What's next for PetrTrips
+
+We want to add in pictures for the tourist attractions. We would also like to implement more APIs to provide extra resources like flight information and weather updates.
+
+## For the GitHub
+
+Please go to the final branch, not the main branch!
+
+## Built With
+
+    fast.api
+    geoapify
+    javascript
+    python
+    react
+    yelp.api
+
+## Contributions:
+
+Humayl A. Chishti - Worked on the front end and helped with debugging in the back end. First time using React and JS.
+Jonathan Pan - Worked on the front end and helped debug the back end. I also created the communication between the front and back end, fetching the attraction's names and pictures.
+Pavana Upadhyaya - I worked on the backend! This was my first time using APIs.
+Paige Townsend - I worked on the backend. I primarily focused on getting the geoapify APIs to function and connected it to the yelp API despite us not being able to add the attractions to the frontend
