@@ -47,6 +47,9 @@ Please go to the final branch, not the main branch!
 ## Contributions:
 
 Humayl A. Chishti - Worked on the front end and helped with debugging in the back end. First time using React and JS.
+
 Jonathan Pan - Worked on the front end and helped debug the back end. I also created the communication between the front and back end, fetching the attraction's names and pictures.
+
 Pavana Upadhyaya - I worked on the backend! This was my first time using APIs.
+
 Paige Townsend - I worked on the backend. I primarily focused on getting the geoapify APIs to function and connected it to the yelp API despite us not being able to add the attractions to the frontend
